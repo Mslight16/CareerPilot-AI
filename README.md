@@ -1,36 +1,189 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CareerPilot AI
+
+A complete **AI-powered interview preparation platform** that simulates the entire hiring process — from self-introduction to mock interviews, coding rounds, and a detailed final report with PDF export.
+
+Built entirely with **free tools**. No backend database. No login required.
 
 ## Getting Started
 
-First, run the development server:
+### 1. Get a free Groq API key
+
+Visit [console.groq.com](https://console.groq.com) and create a free account.
+
+### 2. Install & run
 
 ```bash
+cd careerpilot-ai
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Add API key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Go to **Settings** and paste your Groq API key. It's stored locally in your browser.
 
-## Learn More
+## Interview Flow
 
-To learn more about Next.js, take a look at the following resources:
+```
+Dashboard → Self Introduction → Configuration → Mock Interview → Coding Round → Final Report → PDF
+```
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 👤 AI Self Introduction Analysis
+- Text or Voice introduction
+- AI communication analysis
+- Confidence score
+- Professionalism score
+- Communication score
+- Personalized improvement suggestions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### ⚙️ Interview Configuration
+- Multiple job roles
+- Experience level selection
+- Subject selection
+- Coding language selection
+- Interview personality selection
+- Interview rules before starting
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🎤 AI Mock Interview
+- AI-generated interview questions
+- Voice-to-Text support
+- Text answer mode
+- AI interviewer personality
+- Adaptive question difficulty
+- Real-time answer evaluation
+- Previous answer feedback
+- Text-to-Speech interviewer
+- Timer during interview
+
+---
+
+### 💻 AI Coding Interview
+- AI-generated coding problems
+- Monaco Code Editor
+- Multiple programming languages
+- JavaScript code execution
+- AI code review
+- Time & Space Complexity analysis
+- Coding hints
+- Optimized solution feedback
+- Coding performance evaluation
+
+---
+
+### 📊 Final AI Report
+- Overall interview score
+- Communication analysis
+- Technical analysis
+- Coding analysis
+- Confidence analysis
+- Strengths & weaknesses
+- Hiring recommendation
+- Suggested experience level
+- Personalized improvement roadmap
+- Learning resources
+
+---
+
+### 📄 PDF Report
+Generate a professional PDF containing:
+
+- Interview questions
+- Your answers
+- Best AI-generated answers
+- Coding solutions
+- Optimized code
+- Complexity analysis
+- Improvement notes
+
+---
+
+## 🛡️ Anti-Cheating Features
+
+- Copy prevention
+- Paste prevention
+- Cut prevention
+- Drag & Drop prevention
+- Context menu disabled
+- Keyboard shortcut blocking
+- Tab switching detection
+- Secure interview environment
+
+---
+
+## 🎯 Supported Job Roles
+
+### Coding Roles
+- Software Engineer
+- Frontend Developer
+- Backend Developer
+- Full Stack Developer
+- React Developer
+- Node.js Developer
+- Java Developer
+- Python Developer
+- DevOps Engineer
+- Data Scientist
+- Machine Learning Engineer
+
+### Non-Coding Roles
+- Network Engineer
+- System Administrator
+- IT Support Engineer
+- Technical Support Engineer
+- QA Manual Tester
+- Cyber Security Analyst
+- Database Administrator
+- Cloud Support Associate
+- Business Analyst
+- Product Manager
+
+---
+
+## Tech Stack (100% Free)
+
+| Tool | Purpose |
+|------|---------|
+| **Next.js + React** | Frontend framework |
+| **Tailwind CSS** | Styling |
+| **Framer Motion** | Animations |
+| **Groq API** | AI (Llama 3.3 70B, DeepSeek R1, Qwen) |
+| **Web Speech API** | Voice recognition |
+| **SpeechSynthesis API** | Text-to-speech |
+| **Monaco Editor** | VS Code-like code editor |
+| **jsPDF** | PDF generation |
+| **Zustand** | In-browser state |
+
+
+## Browser Recommendations
+
+- **Chrome or Edge** for best speech recognition
+- Allow microphone permission when using voice input
+
+## Project Structure
+
+```
+app/
+  page.js              # Dashboard
+  introduction/        # Step 1: Self intro
+  configure/           # Step 2: Role & subjects
+  interview/           # Step 3: Mock interview
+  coding/              # Step 4: Coding round
+  report/              # Step 5: Final evaluation
+  pdf/                 # Step 6: Best answers document
+  settings/            # API key & preferences
+  api/groq/            # Thin Groq API proxy
+components/            # UI components
+lib/                   # Store, prompts, PDF, constants
+hooks/                 # Speech recognition & synthesis
+```
+
+## License
+
+MIT — Free to use for portfolio and learning.

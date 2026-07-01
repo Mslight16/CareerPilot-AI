@@ -1,65 +1,176 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect } from "react";
+import { AppShell, PageHeader } from "@/components/layout/app-shell";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useInterviewStore } from "@/lib/store";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Mic,
+  MessageSquare,
+  Code2,
+  FileBarChart,
+  Sparkles,
+} from "lucide-react";
+import Link from "next/link";
+
+const features = [
+  { icon: Mic, title: "Self Introduction", desc: "Voice or text with AI analysis" },
+  { icon: MessageSquare, title: "Mock Interview", desc: "Adaptive technical & HR questions" },
+  { icon: Code2, title: "Coding Round", desc: "Monaco editor with AI code review" },
+  { icon: FileBarChart, title: "Final Report", desc: "20+ scores & improvement plan" },
+];
+
+const flowSteps = [
+  "Self Introduction",
+  "Interview Configuration",
+  "Mock Interview Round",
+  "Coding Round (if applicable)",
+  "AI Evaluation",
+  "Best Answers PDF",
+];
+
+export default function DashboardPage() {
+  const { userName, setUserName, groqApiKey } = useInterviewStore();
+
+  useEffect(() => {
+    if (!userName) {
+      const saved = localStorage.getItem("careerpilot-user-name");
+      if (saved) setUserName(saved);
+    }
+  }, [userName, setUserName]);
+
+  const handleNameChange = (e) => {
+    setUserName(e.target.value);
+    localStorage.setItem("careerpilot-user-name", e.target.value);
+  };
+
+  const displayName = userName || "there";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <AppShell>
+      <PageHeader
+        title={`Hello ${displayName} 👋`}
+        description="Welcome to CareerPilot AI — your complete AI-powered interview simulator."
+      />
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="lg:col-span-2 space-y-6"
+        >
+          <Card className="border-indigo-500/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-indigo-400" />
+                Today&apos;s Interview Journey
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-slate-300 leading-relaxed">
+                We&apos;ll conduct a realistic interview based on your chosen role.
+                The interview simulates the entire hiring process — just like a real company.
+              </p>
+
+              <div className="space-y-2">
+                {flowSteps.map((step) => (
+                  <div key={step} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-sm text-slate-300">{step}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                <div className="flex-1">
+                  <label className="text-xs text-slate-500 mb-1 block">
+                    Your name (optional)
+                  </label>
+                  <Input
+                    placeholder="Enter your name..."
+                    value={userName}
+                    onChange={handleNameChange}
+                  />
+                </div>
+              </div>
+
+              {!groqApiKey && (
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-sm">
+                  Add your free Groq API key in{" "}
+                  <Link href="/settings" className="underline font-medium">
+                    Settings
+                  </Link>{" "}
+                  before starting.
+                </div>
+              )}
+
+              <Link href="/introduction">
+                <Button className="w-full sm:w-auto mt-2" size="lg">
+                  Start Interview
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {features.map(({ icon: Icon, title, desc }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card className="h-full hover:border-indigo-500/30 transition-colors">
+                  <CardContent className="pt-6">
+                    <div className="p-2 w-fit rounded-lg bg-indigo-500/20 mb-3">
+                      <Icon className="w-5 h-5 text-indigo-400" />
+                    </div>
+                    <h3 className="font-semibold text-white">{title}</h3>
+                    <p className="text-sm text-slate-400 mt-1">{desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-6"
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Quick Tips</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-slate-400">
+              <p>• Use Chrome or Edge for best voice recognition</p>
+              <p>• Find a quiet place for speaking answers</p>
+              <p>• Groq API is completely free at console.groq.com</p>
+              <p>• All data stays in your browser — no login needed</p>
+              <p>• Difficulty adapts based on your answers</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-purple-500/20">
+            <CardContent className="pt-6 text-center">
+              <p className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                100%
+              </p>
+              <p className="text-sm text-slate-400 mt-1">Free to build & use</p>
+              <p className="text-xs text-slate-500 mt-3">
+                Groq AI + Browser APIs + No backend required
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    </AppShell>
   );
 }
